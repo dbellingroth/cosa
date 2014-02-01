@@ -40,20 +40,11 @@
     
 
 
-    <!-- http://david.bellingroth.org/caso.owl#active_control -->
+    <!-- http://david.bellingroth.org/caso.owl#fosters_threat -->
 
-    <owl:ObjectProperty rdf:about="&caso;active_control">
-        <rdfs:domain rdf:resource="&securityontology;Asset"/>
-        <rdfs:range rdf:resource="&securityontology;Control"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#fosters_vulnerability -->
-
-    <owl:ObjectProperty rdf:about="&caso;fosters_vulnerability">
+    <owl:ObjectProperty rdf:about="&caso;fosters_threat">
         <rdfs:domain rdf:resource="&caso;ContextClassifier"/>
-        <rdfs:range rdf:resource="&securityontology;Vulnerability"/>
+        <rdfs:range rdf:resource="&securityontology;Threat"/>
     </owl:ObjectProperty>
     
 
@@ -63,7 +54,20 @@
     <owl:ObjectProperty rdf:about="&caso;has_context_classifier">
         <rdfs:domain rdf:resource="&caso;Context"/>
         <rdfs:range rdf:resource="&caso;ContextClassifier"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&caso;has_context_classifier"/>
+            <rdf:Description rdf:about="&caso;subclassifier_of"/>
+        </owl:propertyChainAxiom>
     </owl:ObjectProperty>
+    <owl:Axiom>
+        <rdfs:comment xml:lang="de">Wenn ein Kontext einen Contextclassifier hat, so hat er auch dessen Elternclassifier. Realisiert Vererbung der Classifier</rdfs:comment>
+        <owl:annotatedSource rdf:resource="&caso;has_context_classifier"/>
+        <owl:annotatedProperty rdf:resource="&owl;propertyChainAxiom"/>
+        <owl:annotatedTarget rdf:parseType="Collection">
+            <rdf:Description rdf:about="&caso;has_context_classifier"/>
+            <rdf:Description rdf:about="&caso;subclassifier_of"/>
+        </owl:annotatedTarget>
+    </owl:Axiom>
     
 
 
@@ -76,81 +80,35 @@
     
 
 
-    <!-- http://david.bellingroth.org/caso.owl#has_direct_predecessor_context -->
+    <!-- http://david.bellingroth.org/caso.owl#has_exploitable_vulnerability -->
 
-    <owl:ObjectProperty rdf:about="&caso;has_direct_predecessor_context">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&caso;Context"/>
-        <rdfs:domain rdf:resource="&caso;Context"/>
-        <owl:inverseOf rdf:resource="&caso;has_direct_sucessor_context"/>
-        <rdfs:subPropertyOf rdf:resource="&caso;has_predecessor_context"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#has_direct_sucessor_context -->
-
-    <owl:ObjectProperty rdf:about="&caso;has_direct_sucessor_context">
-        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
-        <rdfs:range rdf:resource="&caso;Context"/>
-        <rdfs:domain rdf:resource="&caso;Context"/>
-        <rdfs:subPropertyOf rdf:resource="&caso;has_successor_context"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#has_predecessor_context -->
-
-    <owl:ObjectProperty rdf:about="&caso;has_predecessor_context">
-        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
-        <rdfs:domain rdf:resource="&caso;Context"/>
-        <rdfs:range rdf:resource="&caso;Context"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#has_second_predecessor_context -->
-
-    <owl:ObjectProperty rdf:about="&caso;has_second_predecessor_context">
-        <rdfs:domain rdf:resource="&caso;Context"/>
-        <rdfs:range rdf:resource="&caso;Context"/>
-        <rdfs:subPropertyOf rdf:resource="&caso;has_predecessor_context"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#has_second_sucessor_context -->
-
-    <owl:ObjectProperty rdf:about="&caso;has_second_sucessor_context">
-        <rdfs:range rdf:resource="&caso;Context"/>
-        <rdfs:domain rdf:resource="&caso;Context"/>
-        <owl:inverseOf rdf:resource="&caso;has_second_predecessor_context"/>
-        <rdfs:subPropertyOf rdf:resource="&caso;has_successor_context"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#has_successor_context -->
-
-    <owl:ObjectProperty rdf:about="&caso;has_successor_context">
-        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
-        <rdfs:range rdf:resource="&caso;Context"/>
-        <rdfs:domain rdf:resource="&caso;Context"/>
-        <owl:inverseOf rdf:resource="&caso;has_predecessor_context"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#has_vulnerability -->
-
-    <owl:ObjectProperty rdf:about="&caso;has_vulnerability">
+    <owl:ObjectProperty rdf:about="&caso;has_exploitable_vulnerability">
+        <rdfs:comment xml:lang="de">ein Asset hat eine Schwachstelle, die im aktuellen Kontext Gefahr läuft, ausgenutzt zu werden. (Muss nochmal überarbeitet werden, weil diese Eigenschaft unabhängig von den Schutzzielen sein müsste, was sie aber nicht ist (siehe SWRL-Regel))</rdfs:comment>
         <rdfs:domain rdf:resource="&securityontology;Asset"/>
         <rdfs:range rdf:resource="&securityontology;Vulnerability"/>
-        <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="&caso;has_current_context"/>
-            <rdf:Description rdf:about="&caso;has_context_classifier"/>
-            <rdf:Description rdf:about="&caso;fosters_vulnerability"/>
-        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#subclassifier_of -->
+
+    <owl:ObjectProperty rdf:about="&caso;subclassifier_of">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:domain rdf:resource="&caso;ContextClassifier"/>
+        <rdfs:range rdf:resource="&caso;ContextClassifier"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#superclassifier_of -->
+
+    <owl:ObjectProperty rdf:about="&caso;superclassifier_of">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:range rdf:resource="&caso;ContextClassifier"/>
+        <rdfs:domain rdf:resource="&caso;ContextClassifier"/>
+        <owl:inverseOf rdf:resource="&caso;subclassifier_of"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
 
@@ -166,20 +124,10 @@
     
 
 
-    <!-- http://david.bellingroth.org/caso.owl#contains_sensible_information -->
+    <!-- http://david.bellingroth.org/caso.owl#context_property -->
 
-    <owl:DatatypeProperty rdf:about="&caso;contains_sensible_information">
-        <rdfs:domain rdf:resource="&caso;Document"/>
-        <rdfs:range rdf:resource="&xsd;boolean"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#is_work_document -->
-
-    <owl:DatatypeProperty rdf:about="&caso;is_work_document">
-        <rdfs:domain rdf:resource="&caso;Document"/>
-        <rdfs:range rdf:resource="&xsd;boolean"/>
+    <owl:DatatypeProperty rdf:about="&caso;context_property">
+        <rdfs:domain rdf:resource="&caso;Context"/>
     </owl:DatatypeProperty>
     
 
@@ -203,14 +151,8 @@
 
     <!-- http://david.bellingroth.org/caso.owl#ContextClassifier -->
 
-    <owl:Class rdf:about="&caso;ContextClassifier"/>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#Document -->
-
-    <owl:Class rdf:about="&caso;Document">
-        <rdfs:subClassOf rdf:resource="&securityontology;Asset"/>
+    <owl:Class rdf:about="&caso;ContextClassifier">
+        <rdfs:comment xml:lang="de">Leider mussten wir doch wieder auf ContextClassifier zurückgreifen. Eleganter wäre es gewesen, Unterklassen von Context zu verwenden. Allerdings lassen sich keine Property-Chains mit rdf:type realisieren, was dazu führt, dass man die Threats nicht sinnvoll mit bestimmen Kontext verbinden kann.</rdfs:comment>
     </owl:Class>
     
 
@@ -226,147 +168,59 @@
     
 
 
-    <!-- http://david.bellingroth.org/caso.owl#current_context -->
+    <!-- http://david.bellingroth.org/caso.owl#contextclassifier1 -->
 
-    <owl:NamedIndividual rdf:about="&caso;current_context">
+    <owl:NamedIndividual rdf:about="&caso;contextclassifier1">
+        <rdf:type rdf:resource="&caso;ContextClassifier"/>
+        <fosters_threat rdf:resource="&caso;testthreat1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#contextclassifier2 -->
+
+    <owl:NamedIndividual rdf:about="&caso;contextclassifier2">
+        <rdf:type rdf:resource="&caso;ContextClassifier"/>
+        <subclassifier_of rdf:resource="&caso;contextclassifier1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#testasset1 -->
+
+    <owl:NamedIndividual rdf:about="&caso;testasset1">
+        <rdf:type rdf:resource="&securityontology;Asset"/>
+        <has_current_context rdf:resource="&caso;testcontext1"/>
+        <securityontology:requires_level rdf:resource="&securityontology;integrity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#testcontext1 -->
+
+    <owl:NamedIndividual rdf:about="&caso;testcontext1">
         <rdf:type rdf:resource="&caso;Context"/>
-        <has_context_classifier rdf:resource="&caso;not_at_work"/>
-        <has_context_classifier rdf:resource="&caso;public_area"/>
+        <has_context_classifier rdf:resource="&caso;contextclassifier2"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://david.bellingroth.org/caso.owl#current_context_of_document1 -->
+    <!-- http://david.bellingroth.org/caso.owl#testthreat1 -->
 
-    <owl:NamedIndividual rdf:about="&caso;current_context_of_document1">
-        <rdf:type rdf:resource="&caso;Context"/>
-        <has_context_classifier rdf:resource="&caso;document_visible"/>
+    <owl:NamedIndividual rdf:about="&caso;testthreat1">
+        <rdf:type rdf:resource="&securityontology;Threat"/>
+        <securityontology:threatens rdf:resource="&caso;testasset1"/>
+        <securityontology:affects rdf:resource="&securityontology;integrity"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://david.bellingroth.org/caso.owl#device -->
+    <!-- http://david.bellingroth.org/caso.owl#testvulnerability1 -->
 
-    <owl:NamedIndividual rdf:about="&caso;device">
-        <rdf:type rdf:resource="&securityontology;Asset"/>
-        <has_current_context rdf:resource="&caso;current_context"/>
-        <securityontology:contains rdf:resource="&caso;document1"/>
-        <securityontology:contains rdf:resource="&caso;mail_client"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#displaying_sensible_information -->
-
-    <owl:NamedIndividual rdf:about="&caso;displaying_sensible_information">
-        <rdf:type rdf:resource="&caso;ContextClassifier"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#displaying_sensible_information_in_public_area -->
-
-    <owl:NamedIndividual rdf:about="&caso;displaying_sensible_information_in_public_area">
-        <rdf:type rdf:resource="&caso;ContextClassifier"/>
-        <fosters_vulnerability rdf:resource="&caso;somebody_could_see_sensible_information"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#document1 -->
-
-    <owl:NamedIndividual rdf:about="&caso;document1">
-        <rdf:type rdf:resource="&securityontology;Asset"/>
-        <contains_sensible_information rdf:datatype="&xsd;boolean">true</contains_sensible_information>
-        <has_current_context rdf:resource="&caso;current_context_of_document1"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#document_from_work_somewhere_else -->
-
-    <owl:NamedIndividual rdf:about="&caso;document_from_work_somewhere_else">
-        <rdf:type rdf:resource="&caso;ContextClassifier"/>
-        <fosters_vulnerability rdf:resource="&caso;work_document_could_be_read"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#document_visible -->
-
-    <owl:NamedIndividual rdf:about="&caso;document_visible">
-        <rdf:type rdf:resource="&caso;ContextClassifier"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#email1 -->
-
-    <owl:NamedIndividual rdf:about="&caso;email1">
-        <rdf:type rdf:resource="&caso;Document"/>
-        <is_work_document rdf:datatype="&xsd;boolean">true</is_work_document>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#mail_client -->
-
-    <owl:NamedIndividual rdf:about="&caso;mail_client">
-        <rdf:type rdf:resource="&securityontology;Asset"/>
-        <securityontology:contains rdf:resource="&caso;email1"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#not_at_work -->
-
-    <owl:NamedIndividual rdf:about="&caso;not_at_work">
-        <rdf:type rdf:resource="&caso;ContextClassifier"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#password_protection -->
-
-    <owl:NamedIndividual rdf:about="&caso;password_protection">
-        <rdf:type rdf:resource="&securityontology;Control"/>
-        <securityontology:implemented_by rdf:resource="&caso;device"/>
-        <securityontology:implemented_by rdf:resource="&caso;mail_client"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#public_area -->
-
-    <owl:NamedIndividual rdf:about="&caso;public_area">
-        <rdf:type rdf:resource="&caso;ContextClassifier"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#reduce_display_brightness -->
-
-    <owl:NamedIndividual rdf:about="&caso;reduce_display_brightness">
-        <rdf:type rdf:resource="&securityontology;Control"/>
-        <securityontology:implemented_by rdf:resource="&caso;device"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#somebody_could_see_sensible_information -->
-
-    <owl:NamedIndividual rdf:about="&caso;somebody_could_see_sensible_information">
+    <owl:NamedIndividual rdf:about="&caso;testvulnerability1">
         <rdf:type rdf:resource="&securityontology;Vulnerability"/>
-        <securityontology:mitigated_by rdf:resource="&caso;reduce_display_brightness"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://david.bellingroth.org/caso.owl#work_document_could_be_read -->
-
-    <owl:NamedIndividual rdf:about="&caso;work_document_could_be_read">
-        <rdf:type rdf:resource="&securityontology;Vulnerability"/>
-        <securityontology:mitigated_by rdf:resource="&caso;password_protection"/>
+        <securityontology:vulnerability_on rdf:resource="&caso;testasset1"/>
+        <securityontology:exploited_by rdf:resource="&caso;testthreat1"/>
     </owl:NamedIndividual>
     
 
@@ -379,22 +233,22 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <rdf:Description rdf:about="urn:swrl#c">
+    <rdf:Description rdf:about="urn:swrl#contextclassifier">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#a">
+    <rdf:Description rdf:about="urn:swrl#threat">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#d">
+    <rdf:Description rdf:about="urn:swrl#context">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#x">
+    <rdf:Description rdf:about="urn:swrl#asset">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#dc">
+    <rdf:Description rdf:about="urn:swrl#security_attribute">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#v">
+    <rdf:Description rdf:about="urn:swrl#vulnerability">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
     <rdf:Description>
@@ -406,79 +260,9 @@
                 <rdf:first>
                     <rdf:Description>
                         <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:argument2 rdf:resource="&caso;document_from_work_somewhere_else"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#c"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:head>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="&caso;has_current_context"/>
-                                <swrl:argument1 rdf:resource="urn:swrl#a"/>
-                                <swrl:argument2 rdf:resource="urn:swrl#c"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="&swrl;AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="&securityontology;contains"/>
-                                        <swrl:argument1 rdf:resource="urn:swrl#a"/>
-                                        <swrl:argument2 rdf:resource="urn:swrl#d"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="&swrl;AtomList"/>
-                                        <rdf:rest rdf:resource="&rdf;nil"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
-                                                <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
-                                                <swrl:propertyPredicate rdf:resource="&caso;is_work_document"/>
-                                                <swrl:argument1 rdf:resource="urn:swrl#d"/>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                        <swrl:argument2 rdf:resource="&caso;not_at_work"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#c"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:body>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&swrl;Imp"/>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest rdf:resource="&rdf;nil"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;active_control"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#a"/>
-                        <swrl:argument2 rdf:resource="urn:swrl#c"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;has_exploitable_vulnerability"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#vulnerability"/>
                     </rdf:Description>
                 </rdf:first>
             </rdf:Description>
@@ -489,165 +273,90 @@
                 <rdf:first>
                     <rdf:Description>
                         <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_vulnerability"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#a"/>
-                        <swrl:argument2 rdf:resource="urn:swrl#v"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;fosters_threat"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#contextclassifier"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
                     </rdf:Description>
                 </rdf:first>
                 <rdf:rest>
                     <rdf:Description>
                         <rdf:type rdf:resource="&swrl;AtomList"/>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="&swrl;AtomList"/>
-                                <rdf:rest rdf:resource="&rdf;nil"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="&securityontology;mitigated_by"/>
-                                        <swrl:argument2 rdf:resource="urn:swrl#c"/>
-                                        <swrl:argument1 rdf:resource="urn:swrl#v"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                            </rdf:Description>
-                        </rdf:rest>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="&securityontology;implemented_by"/>
-                                <swrl:argument2 rdf:resource="urn:swrl#a"/>
-                                <swrl:argument1 rdf:resource="urn:swrl#c"/>
-                            </rdf:Description>
-                        </rdf:first>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&swrl;Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;AtomList"/>
-                        <rdf:rest rdf:resource="&rdf;nil"/>
                         <rdf:first>
                             <rdf:Description>
                                 <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
                                 <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                                <swrl:argument2 rdf:resource="&caso;public_area"/>
-                                <swrl:argument1 rdf:resource="urn:swrl#c"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#context"/>
+                                <swrl:argument2 rdf:resource="urn:swrl#contextclassifier"/>
                             </rdf:Description>
                         </rdf:first>
-                    </rdf:Description>
-                </rdf:rest>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:argument2 rdf:resource="&caso;displaying_sensible_information"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#c"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest rdf:resource="&rdf;nil"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:argument2 rdf:resource="&caso;displaying_sensible_information_in_public_area"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#c"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&swrl;Imp"/>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest rdf:resource="&rdf;nil"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:argument2 rdf:resource="&caso;displaying_sensible_information"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#dc"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:head>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;AtomList"/>
                         <rdf:rest>
                             <rdf:Description>
                                 <rdf:type rdf:resource="&swrl;AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="&caso;has_current_context"/>
-                                        <swrl:argument2 rdf:resource="urn:swrl#dc"/>
-                                        <swrl:argument1 rdf:resource="urn:swrl#x"/>
-                                    </rdf:Description>
-                                </rdf:first>
                                 <rdf:rest>
                                     <rdf:Description>
                                         <rdf:type rdf:resource="&swrl;AtomList"/>
                                         <rdf:rest>
                                             <rdf:Description>
                                                 <rdf:type rdf:resource="&swrl;AtomList"/>
-                                                <rdf:rest rdf:resource="&rdf;nil"/>
                                                 <rdf:first>
                                                     <rdf:Description>
-                                                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
-                                                        <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
-                                                        <swrl:propertyPredicate rdf:resource="&caso;contains_sensible_information"/>
-                                                        <swrl:argument1 rdf:resource="urn:swrl#d"/>
+                                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="&securityontology;exploited_by"/>
+                                                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
+                                                        <swrl:argument1 rdf:resource="urn:swrl#vulnerability"/>
                                                     </rdf:Description>
                                                 </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                                <swrl:propertyPredicate rdf:resource="&securityontology;requires_level"/>
+                                                                <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                                                                <swrl:argument2 rdf:resource="urn:swrl#security_attribute"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                                                <rdf:first>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                                        <swrl:propertyPredicate rdf:resource="&securityontology;vulnerability_on"/>
+                                                                        <swrl:argument2 rdf:resource="urn:swrl#asset"/>
+                                                                        <swrl:argument1 rdf:resource="urn:swrl#vulnerability"/>
+                                                                    </rdf:Description>
+                                                                </rdf:first>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
                                             </rdf:Description>
                                         </rdf:rest>
                                         <rdf:first>
                                             <rdf:Description>
                                                 <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                                <swrl:propertyPredicate rdf:resource="&securityontology;contains"/>
-                                                <swrl:argument2 rdf:resource="urn:swrl#d"/>
-                                                <swrl:argument1 rdf:resource="urn:swrl#x"/>
+                                                <swrl:propertyPredicate rdf:resource="&securityontology;affects"/>
+                                                <swrl:argument2 rdf:resource="urn:swrl#security_attribute"/>
+                                                <swrl:argument1 rdf:resource="urn:swrl#threat"/>
                                             </rdf:Description>
                                         </rdf:first>
                                     </rdf:Description>
                                 </rdf:rest>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="&caso;has_current_context"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                                        <swrl:argument2 rdf:resource="urn:swrl#context"/>
+                                    </rdf:Description>
+                                </rdf:first>
                             </rdf:Description>
                         </rdf:rest>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="&caso;has_current_context"/>
-                                <swrl:argument2 rdf:resource="urn:swrl#c"/>
-                                <swrl:argument1 rdf:resource="urn:swrl#d"/>
-                            </rdf:Description>
-                        </rdf:first>
                     </rdf:Description>
                 </rdf:rest>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:argument2 rdf:resource="&caso;document_visible"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#c"/>
-                    </rdf:Description>
-                </rdf:first>
             </rdf:Description>
         </swrl:body>
     </rdf:Description>

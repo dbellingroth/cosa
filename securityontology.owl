@@ -260,6 +260,73 @@
     <!-- http://david.bellingroth.org/securityontology.owl#Vulnerability -->
 
     <owl:Class rdf:about="http://david.bellingroth.org/securityontology.owl#Vulnerability"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#accountability -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/securityontology.owl#accountability">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#authenticity -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/securityontology.owl#authenticity">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#availability -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/securityontology.owl#availability">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#confidentiality -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/securityontology.owl#confidentiality">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#integrity -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/securityontology.owl#integrity">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#reliability -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/securityontology.owl#reliability">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#safety -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/securityontology.owl#safety">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:NamedIndividual>
 </rdf:RDF>
 
 
