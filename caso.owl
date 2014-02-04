@@ -59,6 +59,7 @@
     <!-- http://david.bellingroth.org/caso.owl#has_context_classifier -->
 
     <owl:ObjectProperty rdf:about="&caso;has_context_classifier">
+        <rdfs:comment>ein Kontext kann 0-n Contex Classifier besitzen. Dabei werden auch alle Superclassifier berücksichtigt, um eine Art Vererbung zu realisieren.</rdfs:comment>
         <rdfs:domain rdf:resource="&caso;Context"/>
         <rdfs:range rdf:resource="&caso;ContextClassifier"/>
         <owl:propertyChainAxiom rdf:parseType="Collection">
@@ -78,11 +79,29 @@
     
 
 
+    <!-- http://david.bellingroth.org/caso.owl#has_critical_vulnerability -->
+
+    <owl:ObjectProperty rdf:about="&caso;has_critical_vulnerability">
+        <rdfs:domain rdf:resource="&securityontology;Asset"/>
+        <rdfs:range rdf:resource="&securityontology;Vulnerability"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://david.bellingroth.org/caso.owl#has_current_context -->
 
     <owl:ObjectProperty rdf:about="&caso;has_current_context">
         <rdfs:range rdf:resource="&caso;Context"/>
         <rdfs:domain rdf:resource="&securityontology;Asset"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#has_endangered_security_attribute -->
+
+    <owl:ObjectProperty rdf:about="&caso;has_endangered_security_attribute">
+        <rdfs:domain rdf:resource="&securityontology;Asset"/>
+        <rdfs:range rdf:resource="&securityontology;SecurityAttribute"/>
     </owl:ObjectProperty>
     
 
@@ -260,22 +279,7 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <rdf:Description rdf:about="urn:swrl#contextclassifiert">
-        <rdf:type rdf:resource="&swrl;Variable"/>
-    </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#threat">
-        <rdf:type rdf:resource="&swrl;Variable"/>
-    </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#context">
-        <rdf:type rdf:resource="&swrl;Variable"/>
-    </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#context_classifier">
-        <rdf:type rdf:resource="&swrl;Variable"/>
-    </rdf:Description>
     <rdf:Description rdf:about="urn:swrl#asset">
-        <rdf:type rdf:resource="&swrl;Variable"/>
-    </rdf:Description>
-    <rdf:Description rdf:about="urn:swrl#security_attribute">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
     <rdf:Description rdf:about="urn:swrl#vulnerability">
@@ -284,168 +288,45 @@
     <rdf:Description rdf:about="urn:swrl#control">
         <rdf:type rdf:resource="&swrl;Variable"/>
     </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl#context">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl#threat">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl#contextclassifiert">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl#context_classifier">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl#security_attribute">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="&swrl;Imp"/>
-        <swrl:head>
+        <swrl:body>
             <rdf:Description>
                 <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest rdf:resource="&rdf;nil"/>
                 <rdf:first>
                     <rdf:Description>
                         <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;has_exploitable_vulnerability"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;has_critical_vulnerability"/>
                         <swrl:argument1 rdf:resource="urn:swrl#asset"/>
                         <swrl:argument2 rdf:resource="urn:swrl#vulnerability"/>
                     </rdf:Description>
                 </rdf:first>
-            </rdf:Description>
-        </swrl:head>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
                 <rdf:rest>
                     <rdf:Description>
                         <rdf:type rdf:resource="&swrl;AtomList"/>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="&swrl;AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="&securityontology;affects"/>
-                                        <swrl:argument2 rdf:resource="urn:swrl#security_attribute"/>
-                                        <swrl:argument1 rdf:resource="urn:swrl#threat"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="&swrl;AtomList"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                                <swrl:propertyPredicate rdf:resource="&securityontology;exploited_by"/>
-                                                <swrl:argument2 rdf:resource="urn:swrl#threat"/>
-                                                <swrl:argument1 rdf:resource="urn:swrl#vulnerability"/>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                        <rdf:rest>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="&swrl;AtomList"/>
-                                                <rdf:rest>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="&swrl;AtomList"/>
-                                                        <rdf:rest rdf:resource="&rdf;nil"/>
-                                                        <rdf:first>
-                                                            <rdf:Description>
-                                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                                                <swrl:propertyPredicate rdf:resource="&securityontology;vulnerability_on"/>
-                                                                <swrl:argument2 rdf:resource="urn:swrl#asset"/>
-                                                                <swrl:argument1 rdf:resource="urn:swrl#vulnerability"/>
-                                                            </rdf:Description>
-                                                        </rdf:first>
-                                                    </rdf:Description>
-                                                </rdf:rest>
-                                                <rdf:first>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                                        <swrl:propertyPredicate rdf:resource="&securityontology;requires_level"/>
-                                                        <swrl:argument1 rdf:resource="urn:swrl#asset"/>
-                                                        <swrl:argument2 rdf:resource="urn:swrl#security_attribute"/>
-                                                    </rdf:Description>
-                                                </rdf:first>
-                                            </rdf:Description>
-                                        </rdf:rest>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
                         <rdf:first>
                             <rdf:Description>
                                 <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="&caso;has_current_context"/>
-                                <swrl:argument1 rdf:resource="urn:swrl#asset"/>
-                                <swrl:argument2 rdf:resource="urn:swrl#context"/>
+                                <swrl:propertyPredicate rdf:resource="&securityontology;implemented_by"/>
+                                <swrl:argument2 rdf:resource="urn:swrl#asset"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#control"/>
                             </rdf:Description>
                         </rdf:first>
-                    </rdf:Description>
-                </rdf:rest>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;fosters_threat"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#context"/>
-                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:body>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&swrl;Imp"/>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest rdf:resource="&rdf;nil"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;fosters_threat"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#context"/>
-                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:head>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;AtomList"/>
-                        <rdf:rest rdf:resource="&rdf;nil"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
-                                <swrl:argument1 rdf:resource="urn:swrl#context"/>
-                                <swrl:argument2 rdf:resource="urn:swrl#context_classifier"/>
-                            </rdf:Description>
-                        </rdf:first>
-                    </rdf:Description>
-                </rdf:rest>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;fosters_threat"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#contextclassifiert"/>
-                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:body>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&swrl;Imp"/>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest rdf:resource="&rdf;nil"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="&caso;should_activate_control"/>
-                        <swrl:argument1 rdf:resource="urn:swrl#asset"/>
-                        <swrl:argument2 rdf:resource="urn:swrl#control"/>
-                    </rdf:Description>
-                </rdf:first>
-            </rdf:Description>
-        </swrl:head>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="&swrl;AtomList"/>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="&swrl;AtomList"/>
                         <rdf:rest>
                             <rdf:Description>
                                 <rdf:type rdf:resource="&swrl;AtomList"/>
@@ -460,12 +341,93 @@
                                 </rdf:first>
                             </rdf:Description>
                         </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;should_activate_control"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#control"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest rdf:resource="&rdf;nil"/>
                         <rdf:first>
                             <rdf:Description>
                                 <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="&securityontology;implemented_by"/>
-                                <swrl:argument2 rdf:resource="urn:swrl#asset"/>
-                                <swrl:argument1 rdf:resource="urn:swrl#control"/>
+                                <swrl:propertyPredicate rdf:resource="&caso;has_endangered_security_attribute"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                                <swrl:argument2 rdf:resource="urn:swrl#security_attribute"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;has_critical_vulnerability"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#vulnerability"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="&securityontology;requires_level"/>
+                                                <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                                                <swrl:argument2 rdf:resource="urn:swrl#security_attribute"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                    </rdf:Description>
+                                </rdf:rest>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="&securityontology;exploited_by"/>
+                                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl#vulnerability"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="&securityontology;affects"/>
+                                <swrl:argument2 rdf:resource="urn:swrl#security_attribute"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#threat"/>
                             </rdf:Description>
                         </rdf:first>
                     </rdf:Description>
@@ -478,6 +440,120 @@
                         <swrl:argument2 rdf:resource="urn:swrl#vulnerability"/>
                     </rdf:Description>
                 </rdf:first>
+            </rdf:Description>
+        </swrl:body>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;has_exploitable_vulnerability"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#vulnerability"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;fosters_threat"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#context"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="&securityontology;vulnerability_on"/>
+                                                <swrl:argument2 rdf:resource="urn:swrl#asset"/>
+                                                <swrl:argument1 rdf:resource="urn:swrl#vulnerability"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                    </rdf:Description>
+                                </rdf:rest>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="&securityontology;exploited_by"/>
+                                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl#vulnerability"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="&caso;has_current_context"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#asset"/>
+                                <swrl:argument2 rdf:resource="urn:swrl#context"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;fosters_threat"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#context"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&caso;fosters_threat"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#contextclassifiert"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#threat"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest rdf:resource="&rdf;nil"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="&caso;has_context_classifier"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#context"/>
+                                <swrl:argument2 rdf:resource="urn:swrl#context_classifier"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
             </rdf:Description>
         </swrl:body>
     </rdf:Description>
