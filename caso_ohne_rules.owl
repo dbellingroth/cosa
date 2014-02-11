@@ -19,6 +19,125 @@
         <owl:imports rdf:resource="http://david.bellingroth.org/securityontology.owl"/>
         <owl:versionIRI rdf:resource="http://david.bellingroth.org/caso.owl/0.2"/>
     </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#fosters_threat -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/caso.owl#fosters_threat">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/caso.owl#Context"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#has_current_context -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/caso.owl#has_current_context">
+        <rdfs:range rdf:resource="http://david.bellingroth.org/caso.owl#Context"/>
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#Context -->
+
+    <owl:Class rdf:about="http://david.bellingroth.org/caso.owl#Context"/>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#PrivateArea -->
+
+    <owl:Class rdf:about="http://david.bellingroth.org/caso.owl#PrivateArea">
+        <rdfs:subClassOf rdf:resource="http://david.bellingroth.org/caso.owl#Context"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf rdf:resource="http://david.bellingroth.org/caso.owl#PublicArea"/>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#PublicArea -->
+
+    <owl:Class rdf:about="http://david.bellingroth.org/caso.owl#PublicArea">
+        <rdfs:subClassOf rdf:resource="http://david.bellingroth.org/caso.owl#Context"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf rdf:resource="http://david.bellingroth.org/caso.owl#PrivateArea"/>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://david.bellingroth.org/caso.owl#fosters_threat"/>
+                <owl:hasValue rdf:resource="http://david.bellingroth.org/caso.owl#theft"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#current_context_of_device -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/caso.owl#current_context_of_device">
+        <rdf:type rdf:resource="http://david.bellingroth.org/caso.owl#PublicArea"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#device -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/caso.owl#device">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#stealability -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/caso.owl#stealability"/>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#theft -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/caso.owl#theft">
+        <rdf:type rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+    </owl:NamedIndividual>
 </rdf:RDF>
 
 

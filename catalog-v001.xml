@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="http://david.bellingroth.org/securityontology.owl" uri="securityontology.owl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1391526801571" name="http://david.bellingroth.org/caso.owl" uri="caso.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1391526801571" name="http://david.bellingroth.org/securityontology.owl" uri="securityontology.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392123565651" name="duplicate:http://david.bellingroth.org/caso.owl" uri="caso.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392123565651" name="duplicate:http://david.bellingroth.org/caso.owl" uri="caso_ohne_rules.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1392123565651" name="http://david.bellingroth.org/securityontology.owl" uri="securityontology.owl"/>
     </group>
 </catalog>
