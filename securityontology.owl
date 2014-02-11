@@ -124,6 +124,15 @@
     
 
 
+    <!-- http://david.bellingroth.org/securityontology.owl#has_vulnerability -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#has_vulnerability">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Vulnerability"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://david.bellingroth.org/securityontology.owl#implemented_by -->
 
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#implemented_by">
@@ -274,6 +283,7 @@
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#vulnerability_on">
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Vulnerability"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#has_vulnerability"/>
     </owl:ObjectProperty>
     
 
