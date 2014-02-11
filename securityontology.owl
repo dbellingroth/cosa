@@ -30,11 +30,21 @@
     
 
 
+    <!-- http://david.bellingroth.org/securityontology.owl#affected_by -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#affected_by">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://david.bellingroth.org/securityontology.owl#affects -->
 
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#affects">
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#affected_by"/>
     </owl:ObjectProperty>
     
 
@@ -63,6 +73,16 @@
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#exploited_by">
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Vulnerability"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#exploits"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#exploits -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#exploits">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Vulnerability"/>
     </owl:ObjectProperty>
     
 
@@ -72,6 +92,7 @@
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#gives_rise_to">
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#is_given_rise_to_by"/>
     </owl:ObjectProperty>
     
 
@@ -108,6 +129,16 @@
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#implemented_by">
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Control"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#implements"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#implements -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#implements">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Control"/>
     </owl:ObjectProperty>
     
 
@@ -123,11 +154,39 @@
     
 
 
+    <!-- http://david.bellingroth.org/securityontology.owl#is_given_rise_to_by -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#is_given_rise_to_by">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#level_is_required_by -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#level_is_required_by">
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://david.bellingroth.org/securityontology.owl#mitigated_by -->
 
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#mitigated_by">
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Control"/>
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Vulnerability"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#mitigates"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#mitigates -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#mitigates">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Control"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Vulnerability"/>
     </owl:ObjectProperty>
     
 
@@ -146,6 +205,26 @@
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#owned_by">
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Organisation"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#owns"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#owns -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#owns">
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Organisation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#required_by -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#required_by">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
     </owl:ObjectProperty>
     
 
@@ -153,8 +232,10 @@
     <!-- http://david.bellingroth.org/securityontology.owl#requires -->
 
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#requires">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#required_by"/>
     </owl:ObjectProperty>
     
 
@@ -164,6 +245,16 @@
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#requires_level">
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#SecurityAttribute"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#level_is_required_by"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#threatened_by -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#threatened_by">
+        <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+        <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
     </owl:ObjectProperty>
     
 
@@ -173,6 +264,7 @@
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/securityontology.owl#threatens">
         <rdfs:range rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
         <rdfs:domain rdf:resource="http://david.bellingroth.org/securityontology.owl#Threat"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/securityontology.owl#threatened_by"/>
     </owl:ObjectProperty>
     
 
