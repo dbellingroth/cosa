@@ -100,6 +100,27 @@
     
 
 
+    <!-- http://david.bellingroth.org/caso.owl#Smartphone -->
+
+    <owl:Class rdf:about="http://david.bellingroth.org/caso.owl#Smartphone">
+        <rdfs:subClassOf rdf:resource="http://david.bellingroth.org/securityontology.owl#Asset"/>
+    </owl:Class>
+    
+
+
+    <!-- http://david.bellingroth.org/securityontology.owl#Asset -->
+
+    <rdf:Description rdf:about="http://david.bellingroth.org/securityontology.owl#Asset">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://david.bellingroth.org/securityontology.owl#has_vulnerability"/>
+                <owl:hasValue rdf:resource="http://david.bellingroth.org/caso.owl#stealability"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </rdf:Description>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
