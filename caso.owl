@@ -78,6 +78,26 @@
     
 
 
+    <!-- http://david.bellingroth.org/securityontology.owl#threatens -->
+
+    <rdf:Description rdf:about="&securityontology;threatens">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&securityontology;threatens"/>
+            <rdf:Description rdf:about="&securityontology;contains"/>
+        </owl:propertyChainAxiom>
+    </rdf:Description>
+    <owl:Axiom>
+        <rdfs:comment xml:lang="de">Wenn ein Threat ein Asset bedroht, das ein anderes Asset enthält, so ist dieses Asset auch bedroht</rdfs:comment>
+        <owl:annotatedSource rdf:resource="&securityontology;threatens"/>
+        <owl:annotatedProperty rdf:resource="&owl;propertyChainAxiom"/>
+        <owl:annotatedTarget rdf:parseType="Collection">
+            <rdf:Description rdf:about="&securityontology;threatens"/>
+            <rdf:Description rdf:about="&securityontology;contains"/>
+        </owl:annotatedTarget>
+    </owl:Axiom>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -150,13 +170,13 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="&securityontology;has_vulnerability"/>
-                <owl:hasValue rdf:resource="http://david.bellingroth.org/caso.owl#visibility_of_content"/>
+                <owl:hasValue rdf:resource="http://david.bellingroth.org/caso.owl#stealability"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="&securityontology;has_vulnerability"/>
-                <owl:hasValue rdf:resource="http://david.bellingroth.org/caso.owl#stealability"/>
+                <owl:hasValue rdf:resource="http://david.bellingroth.org/caso.owl#visibility_of_content"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
