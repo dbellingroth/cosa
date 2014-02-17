@@ -35,6 +35,16 @@
     
 
 
+    <!-- http://david.bellingroth.org/caso.owl#fostered_by -->
+
+    <owl:ObjectProperty rdf:about="http://david.bellingroth.org/caso.owl#fostered_by">
+        <rdfs:range rdf:resource="http://david.bellingroth.org/caso.owl#Context"/>
+        <owl:inverseOf rdf:resource="http://david.bellingroth.org/caso.owl#fosters_threat"/>
+        <rdfs:domain rdf:resource="&securityontology;Threat"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://david.bellingroth.org/caso.owl#fosters_threat -->
 
     <owl:ObjectProperty rdf:about="http://david.bellingroth.org/caso.owl#fosters_threat">
@@ -120,6 +130,14 @@
     <!-- http://david.bellingroth.org/caso.owl#Context -->
 
     <owl:Class rdf:about="http://david.bellingroth.org/caso.owl#Context"/>
+    
+
+
+    <!-- http://david.bellingroth.org/caso.owl#Document -->
+
+    <owl:Class rdf:about="http://david.bellingroth.org/caso.owl#Document">
+        <rdfs:subClassOf rdf:resource="&securityontology;Asset"/>
+    </owl:Class>
     
 
 
@@ -222,6 +240,15 @@
     
 
 
+    <!-- http://david.bellingroth.org/caso.owl#document -->
+
+    <owl:NamedIndividual rdf:about="http://david.bellingroth.org/caso.owl#document">
+        <rdf:type rdf:resource="http://david.bellingroth.org/caso.owl#Document"/>
+        <securityontology:requires_level rdf:resource="&securityontology;confidentiality"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://david.bellingroth.org/caso.owl#stealability -->
 
     <owl:NamedIndividual rdf:about="http://david.bellingroth.org/caso.owl#stealability"/>
@@ -234,6 +261,7 @@
         <rdf:type rdf:resource="&securityontology;Threat"/>
         <securityontology:exploits rdf:resource="http://david.bellingroth.org/caso.owl#stealability"/>
         <securityontology:affects rdf:resource="&securityontology;availability"/>
+        <securityontology:affects rdf:resource="&securityontology;confidentiality"/>
     </owl:NamedIndividual>
     
 
